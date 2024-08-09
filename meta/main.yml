@@ -1,0 +1,18 @@
+galaxy_info:
+  author: BenRedic-FyFazan
+  description: OpenBao Vault server role
+  company: BenRedic-FyFazan
+  license: MIT
+  min_ansible_version: '2.1.0'
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - jammy
+
+  galaxy_tags:
+    - networking
+    - security
+    - system
+
+dependencies: []
