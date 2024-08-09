@@ -40,8 +40,8 @@ openbao_harden_file_perms: true
 openbao_manage_user: "true"
 openbao_user: openbao
 openbao_manage_group: false
-openabo_group: "bin"
-openabo_groups: null
+openbao_group: "bin"
+openbao_groups: null
 
 openbao_dotfile: ".bashrc"
 openbao_dotfile_disable: "false"
