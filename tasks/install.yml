@@ -43,7 +43,7 @@
 - name: OpenBao Install || Install OpenBao
   become: true
   ansible.builtin.copy:
-    src: "{{ role_path }}/files/openbao"
+    src: "{{ role_path }}/files/bao"
     dest: "{{ openbao_bin_path }}"
     owner: "{{ openbao_user }}"
     group: "{{ openbao_group }}"
@@ -56,7 +56,7 @@
     path: "{{ item }}"
     state: "absent"
   become: "{{ openbao_privileged_install }}"
-  with_fileglob: "{{ role_path }}/files/openbao"
+  with_fileglob: "{{ role_path }}/files/bao"
   run_once: true
   tags: installation
   delegate_to: 127.0.0.1
