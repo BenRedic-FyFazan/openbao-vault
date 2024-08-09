@@ -60,6 +60,7 @@
     - installation_required | bool
 
 - name: OpenBao || Set OpenBao mlock capability
+  become: true
   ansible.builtin.capabilities:
     path: "{{ openbao_bin_path }}/bao"
     capability: cap_ipc_lock+ep
