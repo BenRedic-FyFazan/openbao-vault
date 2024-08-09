@@ -1,16 +1,16 @@
 ---
-# handlers file for vault
+# handlers file for openbao
 
-- name: Restart vault
+- name: Restart openbao
   become: true
-  service:
-    name: '{{ vault_systemd_service_name }}'
+  ansible.builtin.service:
+    name: '{{ openbao_systemd_service_name }}'
     state: restarted
-  when: vault_service_restart | bool
+  when: openbao_service_restart | bool
 
-- name: Reload vault
+- name: Reload openbao
   become: true
-  service:
-    name: '{{ vault_systemd_service_name }}'
+  ansible.builtin.service:
+    name: '{{ openbao_systemd_service_name }}'
     state: reloaded
-  when: vault_service_reload | bool
+  when: openbao_service_reload | bool

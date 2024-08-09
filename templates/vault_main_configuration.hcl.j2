@@ -8,8 +8,6 @@ disable_clustering = "{{ vault_cluster_disable }}"
 cluster_addr = "{{ vault_cluster_addr }}"
 api_addr = "{{ vault_api_addr }}"
 
-plugin_directory = "{{ vault_plugin_path }}"
-
 {% for l in vault_tcp_listeners %}
 listener "tcp" {
   address = "{{ l.vault_address }}:{{ l.vault_port }}"
@@ -70,49 +68,14 @@ listener "tcp" {
   Select which storage backend you want generated and placed
   in the vault configuration file.
 #}
-{% if vault_backend == 'consul' -%}
-  {% include vault_backend_consul with context -%}
-{% elif vault_backend == 'etcd' -%}
-  {% include vault_backend_etcd with context -%}
-{% elif vault_backend == 'file' -%}
+{% if vault_backend == 'file' -%}
   {% include vault_backend_file with context -%}
-{% elif vault_backend == 's3' -%}
-  {% include vault_backend_s3 with context -%}
-{% elif vault_backend == 'dynamodb' -%}
-  {% include vault_backend_dynamodb with context -%}
-{% elif vault_backend == 'mysql' -%}
-  {% include vault_backend_mysql with context -%}
-{% elif vault_backend == 'gcs' -%}
-  {% include vault_backend_gcs with context -%}
 {% elif vault_backend == 'raft' -%}
   {% include vault_backend_raft with context -%}
 {% endif %}
 
-{% if vault_service_registration_consul_enable -%}
-  {% include vault_service_registration_consul_template with context -%}
-{% endif %}
-{% if vault_service_registration_kubernetes_enable -%}
-  {% include vault_service_registration_kubernetes_template with context -%}
-{% endif %}
-
 {% if vault_ui -%}
 ui = {{ vault_ui | bool | lower }}
-{% endif %}
-
-{% if vault_entropy_seal | bool -%}
-  {% include 'vault_entropy_seal.j2' with context %}
-{% endif %}
-
-{% if vault_enterprise_premium_hsm | bool -%}
-  {% include vault_backend_seal with context %}
-{% endif %}
-
-{% if vault_gkms | bool -%}
-  {% include vault_backend_gkms with context %}
-{% endif %}
-
-{% if vault_ocikms | bool -%}
-  {% include vault_ocikms_backend with context %}
 {% endif %}
 
 {% if vault_telemetry_enabled | bool -%}
@@ -133,10 +96,6 @@ telemetry {
   usage_gauge_period = "{{ vault_telemetry_usage_gauge_period }}"
   {% endif -%}
 }
-{% endif -%}
-
-{% if vault_configure_enterprise_license | bool -%}
-license_path = "{{ vault_license_path }}"
 {% endif -%}
 
 {% if vault_custom_configuration is defined -%}

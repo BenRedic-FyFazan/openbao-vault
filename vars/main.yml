@@ -1,5 +1,5 @@
 ---
-vault_http_status:
+openbao_http_status:
   '200': 'initialized, unsealed, and active'
   '429': 'unsealed and standby'
   '472': 'data recovery mode replication secondary and active'
@@ -8,17 +8,10 @@ vault_http_status:
   '503': 'sealed'
 
 # Supported *nix distributions
-_vault_nix_distros:
+_openbao_nix_distros:
   - 'AlmaLinux'
-  - 'Amazon'
-  - 'Amazon Linux 2'
-  - 'Archlinux'
   - 'CentOS'
-  - 'Debian'
   - 'Fedora'
-  - 'Flatcar'
-  - 'FreeBSD'
   - 'OracleLinux'
   - 'RedHat'
   - 'Rocky'
-  - 'Ubuntu'

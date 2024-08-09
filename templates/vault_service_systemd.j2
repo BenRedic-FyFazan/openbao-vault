@@ -6,14 +6,14 @@ Documentation=https://www.vaultproject.io/docs/
 Requires=network-online.target
 After=network-online.target
 {% if vault_use_config_path %}
-ConditionPathExists={{ vault_config_path }}
+ConditionPathExists={{ openbao_config_path }}
 {% else %}
 ConditionPathExists={{ vault_main_config }}
 {% endif %}
 
 [Service]
-User={{ vault_user }}
-Group={{ vault_group }}
+User={{ openbao_user }}
+Group={{ openbao_group }}
 ProtectSystem=full
 ProtectHome=read-only
 PrivateTmp=yes
@@ -37,7 +37,7 @@ Environment=HTTPS_PROXY={{ vault_https_proxy }}
 {% if vault_no_proxy -%}
 Environment=NO_PROXY={{ vault_no_proxy }}
 {% endif -%}
-ExecStart=/bin/sh -c 'exec {{ vault_bin_path }}/vault server -config={{ vault_config_path if vault_use_config_path else vault_main_config }} -log-level={{ vault_log_level | lower }} {{ vault_exec_output }}'
+ExecStart=/bin/sh -c 'exec {{ openbao_bin_path }}/vault server -config={{ openbao_config_path if vault_use_config_path else vault_main_config }} -log-level={{ vault_log_level | lower }} {{ vault_exec_output }}'
 ExecReload=/bin/kill --signal HUP $MAINPID
 KillMode=process
 KillSignal=SIGINT

@@ -12,8 +12,8 @@
 . /etc/init.d/functions
 {% endif %}
 
-VAULT="{{ vault_bin_path }}/vault"
-CONFIG="{{ vault_config_path }}"
+VAULT="{{ openbao_bin_path }}/vault"
+CONFIG="{{ openbao_config_path }}"
 PID_FILE=/var/run/vault/vault.pid
 
 [ -e /etc/sysconfig/vault ] && . /etc/sysconfig/vault
@@ -22,14 +22,14 @@ export GOMAXPROCS=$(nproc)
 
 mkrundir() {
         [ ! -d /var/run/vault ] && mkdir -p /var/run/vault
-        chown {{ vault_user }} /var/run/vault
+        chown {{ openbao_user }} /var/run/vault
 }
 
 KILLPROC_OPT="-p ${PID_FILE}"
 mkpidfile() {
         mkrundir
         [ ! -f $PID_FILE ] && pidofproc $VAULT > $PID_FILE
-        chown {{ vault_user }} /var/run/vault
+        chown {{ openbao_user }} /var/run/vault
         if [ $? -ne 0 ] ; then
             rm $PID_FILE
             KILLPROC_OPT=""
@@ -49,9 +49,9 @@ start() {
         {% endif -%}
         mkrundir
         [ -f $PID_FILE ] && rm $PID_FILE
-        daemon --user={{ vault_user }} \
+        daemon --user={{ openbao_user }} \
             --pidfile="$PID_FILE" \
-            "$VAULT" server -config={{ vault_config_path if vault_use_config_path else vault_main_config }} {% if vault_log_level is defined %}-log-level={{ vault_log_level | lower }}{% endif %} {{ vault_exec_output }} &
+            "$VAULT" server -config={{ openbao_config_path if vault_use_config_path else vault_main_config }} {% if vault_log_level is defined %}-log-level={{ vault_log_level | lower }}{% endif %} {{ vault_exec_output }} &
         retcode=$?
         touch /var/lock/subsys/vault
         return $retcode
