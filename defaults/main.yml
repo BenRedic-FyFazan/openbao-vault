@@ -22,7 +22,7 @@ openbao_pkg: "openbao_{{ openbao_version }}_{{ openbao_os }}_{{ openbao_architec
 openbao_archive_url: "https://github.com/openbao/openbao/releases/download/v{{ openbao_version }}/bao_{{ openbao_version }}_Linux_{{ openbao_architecture }}.tar.gz"
 
 # Installation
-openbao_start_pause_seconds: 0
+openbao_start_pause_seconds: 10
 
 # Install method variables
 openbao_privileged_install: false
