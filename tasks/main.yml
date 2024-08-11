@@ -241,7 +241,7 @@
 
 - name: Vault status
   ansible.builtin.debug:
-    msg: "Vault is {{ vault_http_status[check_result.status | string] }}"
+    msg: "Vault is {{ openbao_http_status[check_result.status | string] }}"
   tags:
     - check_vault
   when:
