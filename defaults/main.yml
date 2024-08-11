@@ -69,7 +69,7 @@ vault_address: "{{ hostvars[inventory_hostname]['ansible_' + vault_iface]['ipv4'
 vault_ui: "{{ lookup('env', 'VAULT_UI') | default(true, true) }}"
 vault_port: 8200
 
-vault_use_config_path: "{{ default(false) }}"
+vault_use_config_path: "false"
 
 vault_main_config: "{{ openbao_config_path }}/vault_main.hcl"
 vault_main_configuration_template: vault_main_configuration.hcl.j2
