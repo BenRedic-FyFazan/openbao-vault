@@ -2,9 +2,9 @@
 # {{ ansible_managed }}
 #
 # chkconfig:   2345 95 95
-# description: Vault secret management tool
-# processname: vault
-# pidfile: /var/run/vault/pidfile
+# description: OpenBao secret management tool
+# processname: bao
+# pidfile: /var/run/openbao/pidfile
 
 {% if ansible_distribution == "Ubuntu" %}
 . /lib/lsb/init-functions
@@ -12,24 +12,24 @@
 . /etc/init.d/functions
 {% endif %}
 
-VAULT="{{ openbao_bin_path }}/vault"
+VAULT="{{ openbao_bin_path }}/bao"
 CONFIG="{{ openbao_config_path }}"
-PID_FILE=/var/run/vault/vault.pid
+PID_FILE={{ openbao_run_path }}/vault.pid
 
 [ -e /etc/sysconfig/vault ] && . /etc/sysconfig/vault
 
 export GOMAXPROCS=$(nproc)
 
 mkrundir() {
-        [ ! -d /var/run/vault ] && mkdir -p /var/run/vault
-        chown {{ openbao_user }} /var/run/vault
+        [ ! -d /var/run/vault ] && mkdir -p {{ openbao_run_path }}
+        chown {{ openbao_user }} {{ openbao_run_path }}
 }
 
 KILLPROC_OPT="-p ${PID_FILE}"
 mkpidfile() {
         mkrundir
         [ ! -f $PID_FILE ] && pidofproc $VAULT > $PID_FILE
-        chown {{ openbao_user }} /var/run/vault
+        chown {{ openbao_user }} {{ openbao_run_path }}
         if [ $? -ne 0 ] ; then
             rm $PID_FILE
             KILLPROC_OPT=""
@@ -37,7 +37,7 @@ mkpidfile() {
 }
 
 start() {
-        echo -n "Starting vault: "
+        echo -n "Starting openbao vault: "
         {% if vault_http_proxy -%}
         export HTTP_PROXY={{ vault_http_proxy }}
         {% endif -%}
@@ -58,7 +58,7 @@ start() {
 }
 
 stop() {
-        echo -n "Shutting down vault: "
+        echo -n "Shutting down openbao vault: "
         if ("${VAULT}" info 2>/dev/null | grep -q 'server = false' 2>/dev/null) ; then
             "$VAULT" leave
         fi

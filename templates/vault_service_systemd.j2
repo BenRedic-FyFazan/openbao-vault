@@ -1,8 +1,8 @@
 # {{ ansible_managed }}
 
 [Unit]
-Description="HashiCorp Vault - A tool for managing secrets"
-Documentation=https://www.vaultproject.io/docs/
+Description="OpenBao vault - A tool for managing secrets"
+Documentation=https://openbao.org/docs/
 Requires=network-online.target
 After=network-online.target
 {% if vault_use_config_path %}
@@ -34,7 +34,7 @@ Environment=HTTPS_PROXY={{ vault_https_proxy }}
 {% if vault_no_proxy -%}
 Environment=NO_PROXY={{ vault_no_proxy }}
 {% endif -%}
-ExecStart=/bin/sh -c 'exec {{ openbao_bin_path }}/vault server -config={{ openbao_config_path if vault_use_config_path else vault_main_config }} -log-level={{ vault_log_level | lower }} {{ vault_exec_output }}'
+ExecStart=/bin/sh -c 'exec {{ openbao_bin_path }}/bao server -config={{ openbao_config_path if vault_use_config_path else vault_main_config }} -log-level={{ vault_log_level | lower }} {{ vault_exec_output }}'
 ExecReload=/bin/kill --signal HUP $MAINPID
 KillMode=process
 KillSignal=SIGINT
