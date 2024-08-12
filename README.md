@@ -2,13 +2,14 @@
 
  # OpenBao
 This Ansible role performs a basic [OpenBao](https://openbao.org/)
-installation, including filesystem structure and example configuration.
+installation, including filesystem structure and configuration.
 
 ## Preface
-This role started as a fork of the [ansible-community/ansible-vault role](https://github.com/ansible-community/ansible-vault/tree/master) with the intention of modifying it to use OpenBao instead. Expect severe differences in functionality between this role and the ansible-community/ansible-vault role. 
-Thank you [Brian Shumate](https://github.com/brianshumate) for laying the groundwork!
+This role started out as a fork of the [ansible-community/ansible-vault role](https://github.com/ansible-community/ansible-vault/tree/master) with the intention of adapting it for use with OpenBao and to reduce complexity by removing functionality not needed in our environment. 
+Expect severe differences in functionality between this role and the ansible-community/ansible-vault role. 
+Additionally, as OpenBao is a fork of Hashicorp vault, some paths, variables and the likes still use Hashicorp Vault naming and path conventions.
 
-Additionally, as OpenBao is a fork of Hashicorp vault, some paths, variables and similar still use the 'vault' name and path convention.
+Thank you [Brian Shumate](https://github.com/brianshumate) for laying the groundwork!
 
 ## Installation
 - WIP
